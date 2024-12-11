@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="wardrobe-section">
+    <h1>My Wardrobe</h1>
+    {% if wardrobe %}
+    <ul>
+        {% for item in wardrobe %}
+        <li>
+            <img src="{{ item['image_url'] }}" alt="{{ item['name'] }}">
+            <p>{{ item['name'] }} - {{ item['category'] }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Your wardrobe is empty! Start adding items now.</p>
+    {% endif %}
+</div>
+{% endblock %}

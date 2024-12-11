@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My Wardrobe</h1>
+
+<!-- Upload Section -->
+<div class="upload-section">
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" name="file" id="file-input" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<!-- Display Wardrobe Items -->
+<div id="wardrobe-container">
+    <h2>Your Wardrobe Items</h2>
+    <div id="wardrobe-items">
+        <!-- Dynamically populated wardrobe items -->
+    </div>
+</div>
+
+<!-- Display Recommendations -->
+<div id="recommendations-container">
+    <h2>Recommended Matches</h2>
+    <div id="recommendation-items">
+        <!-- Dynamically populated recommendations -->
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/my_wardrobe.js') }}"></script>
+{% endblock %}

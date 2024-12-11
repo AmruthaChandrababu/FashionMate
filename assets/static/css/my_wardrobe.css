@@ -1,0 +1,16 @@
+#wardrobe-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wardrobe-item {
+    margin: 10px;
+    text-align: center;
+    width: 150px;
+}
+
+.wardrobe-item img {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}

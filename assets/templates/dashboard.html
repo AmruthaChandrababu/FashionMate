@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Welcome, {{ user }}</h1>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('view_wardrobe') }}">My Wardrobe</a></li>
+        <li><a href="{{ url_for('recommendations') }}">Recommendations</a></li>
+        <li><a href="{{ url_for('tryon') }}">Virtual Try-On</a></li>
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</nav>
+{% endblock %}

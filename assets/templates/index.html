@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FashionMate - AI Fashion Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="main-header">
+            <div class="logo">
+                <img src="/api/placeholder/100/50" alt="FashionMate Logo">
+                <h1>FashionMate</h1>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#wardrobe"><i class="fas fa-tshirt"></i> My Wardrobe</a></li>
+                    <li><a href="#recommendations"><i class="fas fa-magic"></i> Recommendations</a></li>
+                    <li><a href="#virtual-tryon"><i class="fas fa-user-astronaut"></i> Virtual Try-On</a></li>
+                    <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <section id="wardrobe" class="section wardrobe-section">
+                <h2>My Wardrobe</h2>
+                <div class="upload-container">
+                    <input type="file" id="clothing-upload" accept="image/*" class="file-input">
+                    <label for="clothing-upload" class="upload-btn">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Clothing Item
+                    </label>
+                </div>
+                <div id="wardrobe-grid" class="wardrobe-grid">
+                    <!-- Dynamically populated wardrobe items will go here -->
+                    <div class="placeholder-item">
+                        <img src="/api/placeholder/200/250" alt="Wardrobe Item">
+                        <div class="item-details">
+                            <p>No items yet</p>
+                            <button class="btn-secondary">Add First Item</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="recommendations" class="section recommendations-section">
+                <h2>Outfit Recommendations</h2>
+                <div class="recommendations-container">
+                    <div class="recommendation-card">
+                        <img src="/api/placeholder/250/300" alt="Recommended Outfit">
+                        <div class="recommendation-details">
+                            <h3>Casual Weekend Look</h3>
+                            <p>Perfect for a relaxed day out</p>
+                            <button class="btn-primary">Try This Outfit</button>
+                        </div>
+                    </div>
+                    <div class="recommendation-card">
+                        <img src="/api/placeholder/250/300" alt="Recommended Outfit">
+                        <div class="recommendation-details">
+                            <h3>Office Professional</h3>
+                            <p>Sleek and sophisticated</p>
+                            <button class="btn-primary">Try This Outfit</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="virtual-tryon" class="section virtual-tryon-section">
+                <h2>Virtual Try-On</h2>
+                <div class="camera-container">
+                    <video id="camera-feed" autoplay playsinline></video>
+                    <canvas id="overlay-canvas"></canvas>
+                    <div class="camera-controls">
+                        <button id="capture-btn" class="btn-primary">
+                            <i class="fas fa-camera"></i> Capture
+                        </button>
+                        <button id="tryon-btn" class="btn-secondary">
+                            <i class="fas fa-tshirt"></i> Try On Item
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="main-footer">
+            <div class="footer-content">
+                <p>&copy; 2024 FashionMate. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

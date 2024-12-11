@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="tryon-section">
+    <h1>Virtual Try-On</h1>
+    <div class="tryon-container">
+        <p>Use our virtual try-on feature to visualize outfits before wearing them.</p>
+        <video id="camera-feed" autoplay playsinline></video>
+        <canvas id="overlay-canvas"></canvas>
+        <div class="controls">
+            <button id="capture-btn">Capture</button>
+            <button id="tryon-btn">Try On</button>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/tryon.js') }}"></script>
+{% endblock %}
