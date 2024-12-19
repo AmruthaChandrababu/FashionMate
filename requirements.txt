@@ -1,0 +1,24 @@
+# Core Python Libraries
+Flask==2.1.0
+Flask-Cors==3.0.10
+
+# Machine Learning and Image Processing
+tensorflow==2.9.0
+opencv-python==4.5.5.64
+numpy==1.22.3
+
+# Database
+pymongo==4.1.0
+python-dotenv==0.20.0
+
+# Image and Web Utilities
+Werkzeug==2.1.1
+requests==2.27.1
+
+# Development and Testing
+pytest==7.1.1
+coverage==6.3.2
+
+# Additional Recommended Libraries
+matplotlib==3.5.1
+scikit-learn==1.0.2
