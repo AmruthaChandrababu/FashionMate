@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FashionMate - Smart Wardrobe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input, select {
+      margin-bottom: 10px;
+      padding: 8px;
+      width: 100%;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .recommendations img {
+      margin: 10px;
+      max-width: 200px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgb(0,0,0);
+      background-color: rgba(0,0,0,0.9);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to FashionMate!</h1>
+  <form id="preference-form">
+    <label for="username">Enter your username:</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="style">Preferred Style:</label>
+    <input type="text" id="style" name="preferredStyle" required />
+
+    <label for="colors">Preferred Colors (comma-separated):</label>
+    <input type="text" id="colors" name="preferredColors" required />
+
+    <button type="submit">Save Preferences</button>
+  </form>
+
+  <button id="get-recommendations">Get Recommendations</button>
+
+  <div class="recommendations">
+    <h2>Recommendations:</h2>
+    <div id="recommendation-list"></div>
+  </div>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+  </div>
+
+  <script>
+    document.getElementById('preference-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const preferredStyle = document.getElementById('style').value;
+      const preferredColors = document.getElementById('colors').value.split(',').map(color => color.trim());
+
+      const response = await fetch('/save_preferences', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, preferences: { preferredStyle, preferredColors } })
+      });
+
+      const result = await response.json();
+      alert(result.message);
+    });
+
+    document.getElementById('get-recommendations').addEventListener('click', async () => {
+      const username = document.getElementById('username').value;
+
+      const response = await fetch(`/get_recommendations?username=${username}`);
+      const result = await response.json();
+
+      const recommendationList = document.getElementById('recommendation-list');
+      recommendationList.innerHTML = '';
+
+      if (result.recommendations && result.recommendations.length > 0) {
+        result.recommendations.forEach(recommendation => {
+          const img = document.createElement('img');
+          img.src = recommendation.image;
+          img.alt = recommendation.productName;
+          img.onclick = () => {
+            document.getElementById('img01').src = recommendation.image;
+            document.getElementById('myModal').style.display = 'block';
+          };
+          recommendationList.appendChild(img);
+        });
+      } else {
+        recommendationList.innerHTML = '<p>No recommendations found!</p>';
+      }
+    });
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    function fetchImages() {
+        let gender = document.getElementById("gender").value;
+
+        fetch("/get_images", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ gender: gender })
+        })
+        .then(response => response.json())
+        .then(data => {
+            let imageContainer = document.getElementById("images");
+            imageContainer.innerHTML = "";
+
+            if (data.error) {
+                imageContainer.innerHTML = "<p style='color:red;'>" + data.error + "</p>";
+                return;
+            }
+
+            data.images.forEach(imgSrc => {
+                let img = document.createElement("img");
+                img.src = imgSrc;
+                img.style.width = "150px";
+                img.style.margin = "10px";
+                imageContainer.appendChild(img);
+            });
+        });
+    }
+</script>
+</head>
+<body>
+<h1>Clothing Recommendation System</h1>
+
+<label for="gender">Select Gender:</label>
+<select id="gender">
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+</select>
+<button onclick="fetchImages()">Show Clothing</button>
+
+<div id="images"></div>
+<style>
+  img {
+      width: 200px;  /* Set a fixed width */
+      height: 250px; /* Set a fixed height */
+      object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
+      margin: 10px;
+      border-radius: 10px; /* Optional: adds rounded corners */
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2); /* Optional: adds a shadow effect */
+  }
+</style>
+
+</body>
+</html>

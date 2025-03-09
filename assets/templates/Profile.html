@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Profile</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300i,400,400i,700%7CMontserrat:400,500,600,700%7CPlayfair+Display:400,700,700i%7COswald:400,700,700i">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+</head>
+<body>
+    <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="{{ url_for('static', filename='images/ie8-panel/warning_bar_0000_us.jpg') }}" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <!-- Page Header-->
+        <header class="section page-header">
+            <!-- RD Navbar-->
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar rd-navbar-classic rd-navbar-classic-minimal" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+                    <div class="rd-navbar-main-outer">
+                        <div class="rd-navbar-main">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+                                <!-- RD Navbar Toggle-->
+                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                                <!-- RD Navbar Brand-->
+                                <div class="rd-navbar-brand">
+                                    <!--Brand--><a class="brand" href="{{ url_for('index') }}"><img class="brand-logo-dark" src="{{ url_for('static', filename='images/logo 2.png') }}" alt="" width="20" height="10"/></a>
+                                </div>
+                            </div>
+                            <div class="rd-navbar-main-element">
+                                <div class="rd-navbar-nav-wrap">
+                                    <!-- RD Navbar Nav-->
+                                    <ul class="rd-navbar-nav">
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('index') }}">Home</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('login') }}">Login</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('my_wardrobe') }}">MyWardrobe</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Profile Content Section -->
+        <section class="section section-lg bg-default">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-8">
+                        <h2 class="heading-decorate">Your Profile</h2>
+                        
+                        <div class="box-icon-modern modern-variant-2 mt-5">
+                            <div class="profile-info">
+                                <div class="row row-30">
+                                    <div class="col-lg-6">
+                                        <h4>Account Details</h4>
+                                        <p><strong>Username:</strong> {{ user['username'] }}</p>
+                                        <p><strong>Email:</strong> {{ user.get('email', 'Not set') }}</p>
+                                        <p><strong>Preferences:</strong> {{ user['preferences'] | join(', ') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="box-icon-modern modern-variant-2 mt-4">
+                            <div class="location-section">
+                                <h4>Location Information</h4>
+                                <form method="POST" action="{{ url_for('update_location') }}" class="rd-form rd-mailform mt-4">
+                                    <div class="row row-20">
+                                        <div class="col-sm-6">
+                                            <div class="form-wrap">
+                                                <input class="form-input" id="city" type="text" name="city" value="{{ user.get('city', '') }}" placeholder=" " required>
+                                                <label class="form-label" for="city">City</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-wrap">
+                                                <input class="form-input" id="country" type="text" name="country" value="{{ user.get('country', '') }}" placeholder=" " required>
+                                                <label class="form-label" for="country">Country</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-button mt-4">
+                                        <button class="button button-primary" type="submit">Update Location</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div class="form-button text-center mt-5">
+                            <a href="{{ url_for('logout') }}" class="button button-secondary">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Footer-->
+        <section class="bg-gray-100 section-xs text-center">
+            <div class="container">
+                <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>All Rights Reserved</span><span>.&nbsp;</span></p>
+            </div>
+        </section>
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="{{ url_for('static', filename='js/core.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+  <head>
+    <title>Register</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300i,400,400i,700%7CMontserrat:400,500,600,700%7CPlayfair+Display:400,700,700i%7COswald:400,700,700i">
+    <!-- CSS files -->
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/fonts.css">
+<link rel="stylesheet" href="/static/css/style.css">
+
+<!-- JS files -->
+<script src="/static/js/core.min.js"></script>
+<script src="/static/js/script.js"></script>
+
+<!-- Images -->
+<img src="/static/images/logo1.png" alt="">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+  </head>
+  <body>
+    <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <div class="preloader">
+      <div class="preloader-body">
+        <div class="cssload-container">
+          <div class="cssload-speeding-wheel"></div>
+        </div>
+        <p>Loading...</p>
+      </div>
+    </div>
+    <div class="page"><a class="section section-banner d-none d-xl-block" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" target="_blank" style="background-image: url(images/banner/background-04-1920x60.jpg); background-image: -webkit-image-set( url(images/banner/background-04-1920x60.jpg) 1x, url(images/banner/background-04-3840x120.jpg) 2x )"></a>
+      <!-- Page Header-->
+      
+   
+      <!-- Mailform-->
+      <section class="section section-md">
+        <div class="container">
+          <div class="row row-50">
+            <div class="col-lg-8">
+              <h2>Register</h2>
+              <div class="divider-lg"></div>
+              <p></p>
+              <!-- RD Mailform-->
+              <form class="rd-mailform text-left rd-form" method="post" action="{{ url_for('register') }}">
+
+                <div class="row row-30">
+                  <div class="col-sm-6">
+                    <div class="form-wrap">
+                      <label class="form-label" for="Profile-name" style="color:darkgrey">Username</label>
+                      <input class="form-input" id="Profile-name" type="text" name="username" data-constraints="@Required">
+                    </div>
+                  </div>
+                  
+                  
+            
+                  <div class="col-sm-6">
+                    <div class="form-wrap">
+                        <label class="form-label" for="Password">Password</label>
+                        <input class="form-input" id="Password" type="password" name="password" data-constraints="@Required @MinLength(8) @MaxLength(20) @Numeric @Uppercase @Lowercase @SpecialCharacter">
+                    </div>
+                </div>
+                
+                <div class="col-sm-6">
+                    <div class="form-wrap">
+                        <label class="form-label" for="ConfirmPassword">Confirm Password</label>
+                        <input class="form-input" id="ConfirmPassword" type="password" name="confirm_password" data-constraints="@Required @MinLength(8) @MaxLength(20) @Numeric @Uppercase @Lowercase @SpecialCharacter">
+                    </div>
+                </div>
+                
+                </div>
+                <h2>Style Preferences</h2>
+                <div class="divider-lg"></div>
+                <div class="form-wrap">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">Select Your Preferred Styles:</label>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="casual" style="margin-right: 10px;"> Casual
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="formal" style="margin-right: 10px;"> Formal
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="sporty" style="margin-right: 10px;"> Sporty
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="vintage" style="margin-right: 10px;"> Vintage
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="chic" style="margin-right: 10px;"> Chic
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="bohemian" style="margin-right: 10px;"> Bohemian
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="minimalist" style="margin-right: 10px;"> Minimalist
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="streetwear" style="margin-right: 10px;"> Streetwear
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="business_casual" style="margin-right: 10px;"> Business Casual
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="preferences" value="elegant" style="margin-right: 10px;"> Elegant
+                    </div>
+                </div>
+                
+                  <h3>Location Information</h3>
+                  <div class="form-group">
+                    <label for="cityt">City:</label>
+                    <input type="text" id="city" name="city" class="form-control"  placeholder="Enter your city">
+                </div>
+                <div class="form-group">
+                  <label for="country">Country:</label>
+                  <input type="text" id="country" name="country" class="form-control" placeholder="Enter your country">
+              </div>
+                
+                <h3>Favorite Colors (Optional)</h3>
+                <div class="form-wrap">
+                    <label style="font-weight: bold; margin-bottom: 10px; display: block;">Select Your Favorite Colors:</label>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="favorite_colors" value="red" style="margin-right: 10px;"> Red
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="favorite_colors" value="blue" style="margin-right: 10px;"> Blue
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="favorite_colors" value="green" style="margin-right: 10px;"> Green
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="favorite_colors" value="yellow" style="margin-right: 10px;"> Yellow
+                    </div>
+                    <div style="margin-bottom: 10px;">
+                        <input type="checkbox" name="favorite_colors" value="purple" style="margin-right: 10px;"> Purple
+                    </div>
+                </div>
+                <h3>Clothing Preferences</h3>
+                <div class="form-group">
+                    <label>Favorite Clothing Items:</label><br>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="t-shirts" id="item_tshirts">
+                        <label class="form-check-label" for="item_tshirts">T-Shirts</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="jeans" id="item_jeans">
+                        <label class="form-check-label" for="item_jeans">Jeans</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="dresses" id="item_dresses">
+                        <label class="form-check-label" for="item_dresses">Dresses</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="jackets" id="item_jackets">
+                        <label class="form-check-label" for="item_jackets">Jackets</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="sneakers" id="item_sneakers">
+                        <label class="form-check-label" for="item_sneakers">Sneakers</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="clothing_items" value="formal_shoes" id="item_formal_shoes">
+                        <label class="form-check-label" for="item_formal_shoes">Formal Shoes</label>
+                    </div>
+                </div>
+                <h3>Body Measurements (Optional for Recommendations)</h3>
+                <div class="form-group">
+                    <label for="height">Height (cm):</label>
+                    <input type="number" id="height" name="height" class="form-control" min="0" placeholder="Enter your height in cm">
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (kg):</label>
+                    <input type="number" id="weight" name="weight" class="form-control" min="0" placeholder="Enter your weight in kg">
+                </div>
+                <div class="form-group">
+                    <label for="chest">Chest (cm):</label>
+                    <input type="number" id="chest" name="chest" class="form-control" min="0" placeholder="Enter your chest measurement in cm">
+                </div>
+                <div class="form-group">
+                    <label for="waist">Waist (cm):</label>
+                    <input type="number" id="waist" name="waist" class="form-control" min="0" placeholder="Enter your waist measurement in cm">
+                </div>
+                <div class="form-group">
+                    <label for="hips">Hips (cm):</label>
+                    <input type="number" id="hips" name="hips" class="form-control" min="0" placeholder="Enter your hips measurement in cm">
+                </div>
+                <div class="form-button group-sm text-left">
+                    <button class="button button-primary" type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+      </section>
+      <!-- Banner 2--><a class="section section-banner" href="https://www.templatemonster.com/intense-multipurpose-html-template.html" target="_blank" style="background-image: url(images/banner/background-03-1920x310.jpg); background-image: -webkit-image-set( url(images/banner/background-03-1920x310.jpg) 1x, url(images/banner/background-03-3840x620.jpg) 2x )"></a>
+      <!-- Page Footer-->
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="/static/js/core.min.js"></script>
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>

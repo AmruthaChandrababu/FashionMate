@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Home</title>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300i,400,400i,700%7CMontserrat:400,500,600,700%7CPlayfair+Display:400,700,700i%7COswald:400,700,700i">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>.ie-panel{display: none;background: #212121;padding: 10px 0;box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3);clear: both;text-align:center;position: relative;z-index: 1;} html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {display: block;}</style>
+</head>
+<body>
+    <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="{{ url_for('static', filename='images/ie8-panel/warning_bar_0000_us.jpg') }}" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <!-- Page Header-->
+        <header class="section page-header">
+            <!-- RD Navbar-->
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar rd-navbar-classic rd-navbar-classic-minimal" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+                    <div class="rd-navbar-main-outer">
+                        <div class="rd-navbar-main">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+                                <!-- RD Navbar Toggle-->
+                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                                <!-- RD Navbar Brand-->
+                                <div class="rd-navbar-brand">
+                                    <!--Brand--><a class="brand" href="{{ url_for('index') }}"><img class="brand-logo-dark" src="{{ url_for('static', filename='images/logo 2.png') }}" alt="" width="20" height="10"/></a>
+                                </div>
+                            </div>
+                            <div class="rd-navbar-main-element">
+                                <div class="rd-navbar-nav-wrap">
+                                    <!-- RD Navbar Nav-->
+                                    <ul class="rd-navbar-nav">
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="{{ url_for('index') }}">Home</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('login') }}">Login</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('my_wardrobe') }}">MyWardrobe</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- Swiper-->
+        <section class="section swiper-container swiper-slider swiper-slider-1" data-loop="false" data-autoplay="5500" data-simulate-touch="false" data-slide-effect="fade">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" data-slide-bg="{{ url_for('static', filename='images/slide-2-wardrobe') }}">
+                    <div class="swiper-slide-caption section-md">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-10 col-lg-8 col-xl-7">
+                                    <h1 class="heading-decorate" data-caption-animate="fadeInUp" data-caption-delay="100"><span class="text-primary">Fashion</span> Mate <br><span class="divider"></span>Fashion Meets Technology</h1>
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="250">To simplify fashion decisions, promote sustainable wardrobe usage, and enhance user confidence through innovative technology.</p><a class="button button-default-outline" href="register.html" data-caption-animate="fadeInUp" data-caption-delay="450">Register Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide" data-slide-bg="{{ url_for('static', filename='images/slide-2-wardrobe') }}">
+                    <div class="swiper-slide-caption section-md">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-10 col-lg-8 col-xl-7">
+                                    <h1 class="heading-decorate" data-caption-animate="fadeInUp" data-caption-delay="100">Experience the<span class="text-primary">Virtual Try on</span> <br><span class="divider"></span>Feature</h1>
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="250">Experience the future of fashion with our real-time virtual try-on feature.</p><a class="button button-default-outline" href="register.html" data-caption-animate="fadeInUp" data-caption-delay="450">Register Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Swiper Pagination -->
+            <div class="swiper-pagination"></div>
+            <div class="swiper-counter"></div>
+            <!-- Swiper Navigation-->
+            <div class="swiper-button-prev">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="17px" height="30px" viewbox="0 0 17 30" enable-background="new 0 0 17 30" xml:space="preserve">
+                    <g>
+                        <defs>
+                            <rect id="SVGID_111_" width="17" height="30"></rect>
+                        </defs>
+                        <clippath id="SVGID_2222_">
+                            <use xlink:href="#SVGID_111_" overflow="visible"></use>
+                        </clippath>
+                        <line clip-path="url(#SVGID_2222_)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.5" y1="0.833" x2="8.5" y2="29.167"></line>
+                        <polyline clip-path="url(#SVGID_2222_)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="16.15,20.833 8.5,29.167 0.85,20.833"></polyline>
+                    </g>
+                </svg>
+            </div>
+            <div class="swiper-button-next">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="17px" height="30px" viewbox="0 0 17 30" enable-background="new 0 0 17 30" xml:space="preserve">
+                    <g>
+                        <defs>
+                            <rect id="SVGID_1_" width="17" height="30"></rect>
+                        </defs>
+                        <clippath id="SVGID_2_">
+                            <use xlink:href="#SVGID_1_" overflow="visible"></use>
+                        </clippath>
+                        <line clip-path="url(#SVGID_2_)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="8.5" y1="29.167" x2="8.5" y2="0.833"></line>
+                        <polyline clip-path="url(#SVGID_2_)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="0.85,9.167 8.5,0.833 16.15,9.167"></polyline>
+                    </g>
+                </svg>
+            </div>
+        </section>
+        <section class="section section-lg bg-gray-100">
+            <div class="container">
+                <div class="row row-50 align-items-lg-center justify-content-xl-between">
+                    <div class="col-lg-6">
+                        <div class="box-images">
+                            <div class="box-images-item box-images-1" data-parallax-scroll="{&quot;y&quot;: 20, &quot;x&quot;: 30,  &quot;smoothness&quot;: 30 }"><img src="{{ url_for('static', filename='images/p4.jpg') }}" alt="" width="282" height="282"/></div>
+                            <div class="box-images-item box-images-2" data-parallax-scroll="{&quot;y&quot;: 20,  &quot;smoothness&quot;: 30 }"><img src="{{ url_for('static', filename='images/p1.jpeg') }}" alt="" width="240" height="369"/></div>
+                            <div class="box-images-item box-images-3" data-parallax-scroll="{&quot;y&quot;: 20, &quot;x&quot;: -30, &quot;smoothness&quot;: 30 }"><img src="{{ url_for('static', filename='images/p2.jpg') }}" alt="" width="259" height="369"/></div>
+                            <div class="box-images-item box-images-4" data-parallax-scroll="{&quot;y&quot;: -20,  &quot;smoothness&quot;: 30 }"><img src="{{ url_for('static', filename='images/p3.jpg') }}" alt="" width="266" height="266"/></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-5">
+                        <h2 class="heading-decorate">Why Our Clients <br><span class="divider"></span>Choose Us</h2>
+                        <p class="big text-gray-800">Choose FashionMate for a seamless blend of style and technology. Our platform offers personalized outfit recommendations, real-time virtual try-ons, and efficient wardrobe management to simplify your fashion decisions.</p>
+                        <p class="text-spacing-60">With a focus on sustainability and user-friendly design, FashionMate empowers you to make confident, stylish, and eco-conscious choices effortlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-lg bg-default text-center">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="divider-lg"></div>
+                <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-9">
+                        <p>Treat yourself to one of our signature services. we offer a range of innovative solutions to elevate your fashion experience. Embrace convenience, sustainability, and confidence with FashionMate as your ultimate fashion assistant.</p>
+                    </div>
+                </div>
+                <div class="row icon-modern-list no-gutters">
+                    <div class="col-sm-6 col-lg-4">
+                        <article class="box-icon-modern modern-variant-2">
+                            <h4 class="box-icon-modern-title"><a href="#">Outfit suggestion &amp; Styling</a></h4>
+                            <div class="divider"></div>
+                            <p>Perfect Looks, Personalized for You!"</p>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <article class="box-icon-modern modern-variant-2">
+                            <h4 class="box-icon-modern-title"><a href="">Virtual Try-On</a></h4>
+                            <div class="divider"></div>
+                            <p>Try on outfits virtually in real-time and find your perfect look with ease</p>
+                        </article>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <article class="box-icon-modern modern-variant-2">
+                            <h4 class="box-icon-modern-title"><a href="#">Latest &amp; Trends</a></h4>
+                            <div class="divider"></div>
+                            <p>Discover the latest fashion trends&amp;keep your style on point, every season!</p>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-lg bg-gray-100">
+            <div class="container">
+                <div class="row row-50">
+                    <div class="col-lg-6">
+                        <div class="row row-50">
+                            <div class="col-md-6 col-lg-12">
+                                <h2 class="heading-decorate"><span class="divider"></span>VIRTUAL TRY ON</h2>
+                                <p class="big text-gray-800">Click on the "Try-On" button and grant permission to access your camera. Stand in front of your camera to allow the system to detect your body and get a clear view.</p>
+                                <p></p>
+                            </div>
+                            <div class="col-md-6 col-lg-12">
+                                <div class="quote-with-image">
+                                    <figure class="quote-img"><img src="{{ url_for('static', filename='images/virtual try 2') }}" alt="" width="534" height="406"/></figure>
+                                    <div class="quote-caption">
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="88.34px" height="65.34px" viewBox="0 0 88.34 65.34" enable-background="new 0 0 88.34 65.34" overflow="scroll" xml:space="preserve" preserveAspectRatio="none">
+                                            <path d="M49.394,65.34v-4.131c12.318-7.088,19.924-16.074,22.811-26.965c-3.125,2.032-5.968,3.051-8.526,3.051																	c-4.265,0-7.864-1.721-10.803-5.168c-2.937-3.444-4.407-7.654-4.407-12.64c0-5.511,1.932-10.142,5.791-13.878																	C58.123,1.873,62.873,0,68.51,0c5.639,0,10.354,2.379,14.143,7.137c3.793,4.757,5.688,10.678,5.688,17.758																	c0,9.977-3.814,18.912-11.443,26.818C69.268,59.613,60.101,64.156,49.394,65.34z M0.923,65.34v-4.131																	c12.321-7.088,19.926-16.074,22.813-26.965c-3.126,2.032-5.993,3.051-8.598,3.051c-4.219,0-7.794-1.721-10.734-5.168																	C1.467,28.683,0,24.473,0,19.487C0,13.976,1.919,9.346,5.757,5.609C9.595,1.873,14.334,0,19.971,0																	c5.685,0,10.41,2.379,14.178,7.137c3.767,4.757,5.652,10.678,5.652,17.758c0,9.977-3.805,18.912-11.409,26.818																	C20.787,59.613,11.632,64.156,0.923,65.34z"></path>
+                                        </svg>
+                                        <h3 class="quote-text">We are responsible for the quality of the beauty services you receive!</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row row-50">
+                            <div class="col-md-6 col-lg-12">
+                                <figure class="block-image"><img src="{{ url_for('static', filename='images/virtual try 4.avif') }}" alt="" width="541" height="369"/></figure>
+                                <p class="big text-gray-800">Browse through our clothing recommendations and select an outfit. Watch as the selected outfit is overlaid onto your body in real-time, letting you see how it looks and fits.</p>
+                            </div>
+                            <div class="col-md-6 col-lg-12">
+                                <div><img src="{{ url_for('static', filename='images/Virtual try 1') }}" alt="" width="541" height="369"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-lg bg-default">
+            <div class="container">
+                <div class="row row-50">
+                    <div class="col-lg-6">
+                        <div class="block-xs">
+                            <h2 class="heading-decorate">Testimonials<br class="d-inline"><span class="divider"></span>of Our Clients</h2>
+                            <p class="big text-gray-800">Thanks to our clients’ regular reviews, testimonials, and comments we are able to improve our services.</p>
+                            <p>We prefer to maintain a constant connection with our customers and receive feedback on every service.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Owl Carousel-->
+                        <div class="owl-carousel carousel-corporate" data-items="1" data-dots="true" data-nav="false" data-stage-padding="10px" data-loop="false" data-margin="25px" data-mouse-drag="false">
+                            <div class="quote-corporate">
+                                <div class="quote-header">
+                                    <h4>Jennifer Moreno</h4>
+                                    <p class="big">Client</p>
+                                </div>
+                                <div class="quote-body">
+                                    <div class="quote-text">
+                                        <p>"FashionMate has been a game-changer for me! The ability to easily organize my wardrobe and receive personalized outfit suggestions based on my preferences and the weather is amazing. The virtual try-on feature is a standout, allowing me to see how clothes look on me in real-time. I’m grateful for this intuitive platform that makes fashion more sustainable and fun. Thank you, FashionMate, for such a thoughtful and innovative solution!</p>
+                                    </div>
+                                    <svg class="quote-body-mark" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="66px" height="49px" viewbox="0 0 66 49" enable-background="new 0 0 66 49" xml:space="preserve">
+                                        <g></g>
+                                        <path d="M36.903,49v-3.098c9.203-5.315,14.885-12.055,17.042-20.222c-2.335,1.524-4.459,2.288-6.37,2.288						c-3.186,0-5.875-1.29-8.071-3.876c-2.194-2.583-3.293-5.74-3.293-9.479c0-4.133,1.443-7.605,4.327-10.407						C43.425,1.405,46.973,0,51.185,0c4.213,0,7.735,1.784,10.566,5.352C64.585,8.919,66,13.359,66,18.669						c0,7.482-2.85,14.183-8.549,20.112C51.751,44.706,44.902,48.112,36.903,49z M0.69,49v-3.098						c9.205-5.315,14.887-12.055,17.044-20.222c-2.335,1.524-4.478,2.288-6.423,2.288c-3.152,0-5.823-1.29-8.02-3.876						C1.096,21.51,0,18.353,0,14.614c0-4.133,1.434-7.605,4.301-10.407C7.168,1.405,10.709,0,14.92,0c4.247,0,7.778,1.784,10.592,5.352						c2.814,3.567,4.223,8.007,4.223,13.317c0,7.482-2.843,14.183-8.524,20.112C15.53,44.706,8.69,48.112,0.69,49z"></path>
+                                    </svg>
+                                </div>
+                                <div class="quote-image"><img src="{{ url_for('static', filename='images/home-1-10-90x90.jpg') }}" alt="" width="90" height="90"/></div>
+                            </div>
+                            <div class="quote-corporate">
+                                <div class="quote-header">
+                                    <h4>Mary Matthews</h4>
+                                    <p class="big">Client</p>
+                                </div>
+                                <div class="quote-body">
+                                    <div class="quote-text">
+                                        <p>"FashionMate has completely transformed the way I manage my wardrobe and choose outfits. The personalized recommendations, combined with the virtual try-on feature, have made dressing up fun and effortless. I love how the platform helps me make the most of my existing clothes, promoting sustainability while keeping me stylish. Thank you, FashionMate, for providing such an innovative and user-friendly experience!</p>
+                                    </div>
+                                    <svg class="quote-body-mark" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="66px" height="49px" viewbox="0 0 66 49" enable-background="new 0 0 66 49" xml:space="preserve">
+                                        <g></g>
+                                        <path d="M36.903,49v-3.098c9.203-5.315,14.885-12.055,17.042-20.222c-2.335,1.524-4.459,2.288-6.37,2.288						c-3.186,0-5.875-1.29-8.071-3.876c-2.194-2.583-3.293-5.74-3.293-9.479c0-4.133,1.443-7.605,4.327-10.407						C43.425,1.405,46.973,0,51.185,0c4.213,0,7.735,1.784,10.566,5.352C64.585,8.919,66,13.359,66,18.669						c0,7.482-2.85,14.183-8.549,20.112C51.751,44.706,44.902,48.112,36.903,49z M0.69,49v-3.098						c9.205-5.315,14.887-12.055,17.044-20.222c-2.335,1.524-4.478,2.288-6.423,2.288c-3.152,0-5.823-1.29-8.02-3.876						C1.096,21.51,0,18.353,0,14.614c0-4.133,1.434-7.605,4.301-10.407C7.168,1.405,10.709,0,14.92,0c4.247,0,7.778,1.784,10.592,5.352						c2.814,3.567,4.223,8.007,4.223,13.317c0,7.482-2.843,14.183-8.524,20.112C15.53,44.706,8.69,48.112,0.69,49z"></path>
+                                    </svg>
+                                </div>
+                                <div class="quote-image"><img src="{{ url_for('static', filename='images/home-1-11-90x90.jpg') }}" alt="" width="90" height="90"/></div>
+                            </div>
+                            <div class="quote-corporate">
+                                <div class="quote-header">
+                                    <h4>Amanda Smith</h4>
+                                    <p class="big">Client</p>
+                                </div>
+                                <div class="quote-body">
+                                    <div class="quote-text">
+                                        <p>"FashionMate has made managing my wardrobe and choosing outfits effortless. The personalized recommendations and virtual try-on feature are fantastic. Thank you for this amazing and innovative platform!</p>
+                                    </div>
+                                    <svg class="quote-body-mark" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="66px" height="49px" viewbox="0 0 66 49" enable-background="new 0 0 66 49" xml:space="preserve">
+                                        <g></g>
+                                        <path d="M36.903,49v-3.098c9.203-5.315,14.885-12.055,17.042-20.222c-2.335,1.524-4.459,2.288-6.37,2.288						c-3.186,0-5.875-1.29-8.071-3.876c-2.194-2.583-3.293-5.74-3.293-9.479c0-4.133,1.443-7.605,4.327-10.407						C43.425,1.405,46.973,0,51.185,0c4.213,0,7.735,1.784,10.566,5.352C64.585,8.919,66,13.359,66,18.669						c0,7.482-2.85,14.183-8.549,20.112C51.751,44.706,44.902,48.112,36.903,49z M0.69,49v-3.098						c9.205-5.315,14.887-12.055,17.044-20.222c-2.335,1.524-4.478,2.288-6.423,2.288c-3.152,0-5.823-1.29-8.02-3.876						C1.096,21.51,0,18.353,0,14.614c0-4.133,1.434-7.605,4.301-10.407C7.168,1.405,10.709,0,14.92,0c4.247,0,7.778,1.784,10.592,5.352						c2.814,3.567,4.223,8.007,4.223,13.317c0,7.482-2.843,14.183-8.524,20.112C15.53,44.706,8.69,48.112,0.69,49z"></path>
+                                    </svg>
+                                </div>
+                                <div class="quote-image"><img src="{{ url_for('static', filename='images/home-1-12-90x90.jpg') }}" alt="" width="90" height="90"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Page Footer-->
+        <section class="bg-gray-100 section-xs text-center">
+            <div class="container">
+                <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>All Rights Reserved</span><span>.&nbsp;</span></p>
+            </div>
+        </section>
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="{{ url_for('static', filename='js/core.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <!-- coded by houdini-->
+</body>
+</html>
