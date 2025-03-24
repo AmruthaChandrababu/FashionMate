@@ -1,214 +1,440 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="wide wow-animation">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FashionMate - Smart Wardrobe</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    form {
-      margin-bottom: 20px;
-    }
-    input, select {
-      margin-bottom: 10px;
-      padding: 8px;
-      width: 100%;
-    }
-    button {
-      padding: 10px 15px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    .recommendations img {
-      margin: 10px;
-      max-width: 200px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgb(0,0,0);
-      background-color: rgba(0,0,0,0.9);
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      width: 80%;
-      max-width: 700px;
-    }
-    .close {
-      position: absolute;
-      top: 15px;
-      right: 35px;
-      color: #f1f1f1;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .close:hover,
-    .close:focus {
-      color: #bbb;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <h1>Welcome to FashionMate!</h1>
-  <form id="preference-form">
-    <label for="username">Enter your username:</label>
-    <input type="text" id="username" name="username" required />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FashionMate - Smart Wardrobe</title>
+    
+    <!-- Stylesheets -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato:300i,400,400i,700%7CMontserrat:400,500,600,700%7CPlayfair+Display:400,700,700i%7COswald:400,700,700i">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <label for="style">Preferred Style:</label>
-    <input type="text" id="style" name="preferredStyle" required />
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background-color: #fff;
+        }
 
-    <label for="colors">Preferred Colors (comma-separated):</label>
-    <input type="text" id="colors" name="preferredColors" required />
+        /* Preferences Sections and Content Styles */
+        .main-content {
+            margin-top: 80px;
+            padding: 50px;
+            text-align: center;
+        }
 
-    <button type="submit">Save Preferences</button>
-  </form>
+        h2 {
+            font-size: 36px;
+            font-family: 'Montserrat', sans-serif;
+            color: #2c2c2c;
+            margin-bottom: 20px;
+            position: relative;
+        }
 
-  <button id="get-recommendations">Get Recommendations</button>
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: #d9534f;
+        }
 
-  <div class="recommendations">
-    <h2>Recommendations:</h2>
-    <div id="recommendation-list"></div>
-  </div>
+        .preferences-section, .recommendations-section {
+            margin: 40px 0;
+        }
 
-  <!-- The Modal -->
-  <div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01">
-  </div>
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+            color: #555;
+        }
 
-  <script>
-    document.getElementById('preference-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const preferredStyle = document.getElementById('style').value;
-      const preferredColors = document.getElementById('colors').value.split(',').map(color => color.trim());
+        select {
+            margin: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            min-width: 120px;
+            display: inline-block;
+        }
 
-      const response = await fetch('/save_preferences', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, preferences: { preferredStyle, preferredColors } })
-      });
+        input[type="checkbox"] {
+            margin: 5px;
+            padding: 5px;
+            font-size: 14px;
+        }
 
-      const result = await response.json();
-      alert(result.message);
-    });
+        .form-group {
+            margin: 10px 0;
+            display: inline-block;
+        }
+        
+        .form-label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
+        }
 
-    document.getElementById('get-recommendations').addEventListener('click', async () => {
-      const username = document.getElementById('username').value;
+        button {
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
 
-      const response = await fetch(`/get_recommendations?username=${username}`);
-      const result = await response.json();
+        button:hover {
+            background-color: #c9302c;
+        }
 
-      const recommendationList = document.getElementById('recommendation-list');
-      recommendationList.innerHTML = '';
+        /* Recommendations Grid */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
 
-      if (result.recommendations && result.recommendations.length > 0) {
-        result.recommendations.forEach(recommendation => {
-          const img = document.createElement('img');
-          img.src = recommendation.image;
-          img.alt = recommendation.productName;
-          img.onclick = () => {
-            document.getElementById('img01').src = recommendation.image;
-            document.getElementById('myModal').style.display = 'block';
-          };
-          recommendationList.appendChild(img);
-        });
-      } else {
-        recommendationList.innerHTML = '<p>No recommendations found!</p>';
+        .image-container {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+        }
+
+        .modal img {
+            max-width: 80%;
+            max-height: 80%;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        /* IE Panel */
+        .ie-panel {
+            display: none;
+            background: #212121;
+            padding: 10px 0;
+            box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
+            clear: both;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        html.ie-10 .ie-panel,
+        html.lt-ie-10 .ie-panel {
+            display: block;
+        }
+        
+        /* Form Styling */
+        .preference-item {
+            margin: 12px 0;
+            clear: both;
+        }
+        
+        .preference-category {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin-right: 15px;
+            font-weight: 500;
+        }
+        
+        .preferences-section, .recommendations-section {
+          margin: 40px 0;
       }
-    });
 
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-  </script>
-  <script>
-    function fetchImages() {
-        let gender = document.getElementById("gender").value;
-
-        fetch("/get_images", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ gender: gender })
-        })
-        .then(response => response.json())
-        .then(data => {
-            let imageContainer = document.getElementById("images");
-            imageContainer.innerHTML = "";
-
-            if (data.error) {
-                imageContainer.innerHTML = "<p style='color:red;'>" + data.error + "</p>";
-                return;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .rd-navbar-panel {
+                padding: 15px 20px;
             }
-
-            data.images.forEach(imgSrc => {
-                let img = document.createElement("img");
-                img.src = imgSrc;
-                img.style.width = "150px";
-                img.style.margin = "10px";
-                imageContainer.appendChild(img);
-            });
-        });
-    }
-</script>
+            .container {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            h2 {
+                font-size: 28px;
+            }
+            .preference-category {
+                width: 80px;
+                display: block;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Clothing Recommendation System</h1>
+    <div class="ie-panel">
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/">
+            <img src="{{ url_for('static', filename='images/ie8-panel/warning_bar_0000_us.jpg') }}" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today.">
+        </a>
+    </div>
+    <div class="preloader">
+        <div class="preloader-body">
+            <div class="cssload-container">
+                <div class="cssload-speeding-wheel"></div>
+            </div>
+            <p>Loading...</p>
+        </div>
+    </div>
+    <div class="page">
+        <!-- Page Header-->
+        <header class="section page-header">
+            <!-- RD Navbar-->
+            <div class="rd-navbar-wrap">
+                <nav class="rd-navbar rd-navbar-classic rd-navbar-classic-minimal" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+                    <div class="rd-navbar-main-outer">
+                        <div class="rd-navbar-main">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+                                <!-- RD Navbar Toggle-->
+                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                                <!-- RD Navbar Brand-->
+                                <div class="rd-navbar-brand">
+                                    <!--Brand--><a class="brand" href="{{ url_for('index') }}"><img class="brand-logo-dark" src="{{ url_for('static', filename='images/logo 2.png') }}" alt="" width="20" height="10"/></a>
+                                </div>
+                            </div>
+                            <div class="rd-navbar-main-element">
+                                <div class="rd-navbar-nav-wrap">
+                                    <!-- RD Navbar Nav-->
+                                    <ul class="rd-navbar-nav">
+                                        <li class="rd-nav-item active"><a class="rd-nav-link" href="{{ url_for('index') }}">Home</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('login') }}">Login</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('my_wardrobe') }}">My Wardrobe</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('dashboard') }}">Recommendations</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('virtual_tryon', path='') }}">Tryon</a></li>
+                                        <li class="rd-nav-item"><a class="rd-nav-link" href="{{ url_for('profile') }}">Profile</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
 
-<label for="gender">Select Gender:</label>
-<select id="gender">
-    <option value="male">Male</option>
-    <option value="female">Female</option>
-</select>
-<button onclick="fetchImages()">Show Clothing</button>
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="preferences-section">
+                <h2>Select Your Preferences</h2>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Gender:</span>
+                    <div class="preference-options">
+                        <select id="gender" class="form-control">
+                            <option value="men">Men</option>
+                            <option value="women">Women</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Type:</span>
+                    <div class="preference-options">
+                        <input type="checkbox" name="type" value="denim"> Denim
+                        <input type="checkbox" name="type" value="T-shirt"> T-Shirt
+                        <input type="checkbox" name="type" value="shirt"> Shirt
+                        <input type="checkbox" name="type" value="pants"> Pants
+                        <input type="checkbox" name="type" value="sweater"> Sweaters
+                        <input type="checkbox" name="type" value="sweatshirts"> Sweatshirts
+                        <input type="checkbox" name="type" value="hoodies"> Hoodies
+                        <input type="checkbox" name="type" value="tees tanks"> Tees & Tanks
+                        <input type="checkbox" name="type" value="blouses shirt"> Blouses
+                        <input type="checkbox" name="type" value="dresses"> Dresses
+                        <input type="checkbox" name="type" value="shorts"> Shorts
+                        <input type="checkbox" name="type" value="cardigan"> Cardigan
+                        <input type="checkbox" name="type" value="jackets_coats"> Jackets & Coats
+                        <input type="checkbox" name="type" value="graphic tees"> Graphic Tees
+                        <input type="checkbox" name="type" value="leggings"> Leggings
+                        <input type="checkbox" name="type" value="rompers"> Rompers
+                        <input type="checkbox" name="type" value="skirts"> Skirts
+                    </div>
+                </div>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Sleeve Type:</span>
+                    <div class="preference-options">
+                        <input type="checkbox" name="sleeveType" value="none"> None
+                        <input type="checkbox" name="sleeveType" value="long-sleeve"> Full Sleeve
+                        <input type="checkbox" name="sleeveType" value="short-sleeve"> Half Sleeve
+                        <input type="checkbox" name="sleeveType" value="sleeveless"> Sleeveless
+                    </div>
+                </div>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Pattern:</span>
+                    <div class="preference-options">
+                        <input type="checkbox" name="pattern" value="none"> None
+                        <input type="checkbox" name="pattern" value="striped"> Striped
+                        <input type="checkbox" name="pattern" value="graphic"> Graphic
+                        <input type="checkbox" name="pattern" value="solid"> Solid
+                    </div>
+                </div>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Fabric:</span>
+                    <div class="preference-options">
+                        <input type="checkbox" name="fabric" value="none"> None
+                        <input type="checkbox" name="fabric" value="cotton"> Cotton
+                        <input type="checkbox" name="fabric" value="polyester"> Polyester
+                        <input type="checkbox" name="fabric" value="wool"> Wool
+                    </div>
+                </div>
+                
+                <div class="preference-item">
+                    <span class="preference-category">Neckline:</span>
+                    <div class="preference-options">
+                        <input type="checkbox" name="neckline" value="none"> None
+                        <input type="checkbox" name="neckline" value="lapel"> Lapel
+                        <input type="checkbox" name="neckline" value="round"> Round
+                        <input type="checkbox" name="neckline" value="v-shaped"> V-shaped
+                    </div>
+                </div>
+                
+                <button onclick="savePreferences()">Save Preferences</button>
+            </section>
 
-<div id="images"></div>
-<style>
-  img {
-      width: 200px;  /* Set a fixed width */
-      height: 250px; /* Set a fixed height */
-      object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
-      margin: 10px;
-      border-radius: 10px; /* Optional: adds rounded corners */
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.2); /* Optional: adds a shadow effect */
-  }
-</style>
+            <section class="recommendations-section">
+                <h2>Recommendations</h2>
+                <div class="container" id="recommendations"></div>
+            </section>
 
+            <div class="modal" id="imageModal">
+                <span class="close" onclick="closeModal()">×</span>
+                <img id="modalImage">
+            </div>
+        </div>
+
+        <!-- Page Footer-->
+        <section class="bg-gray-100 section-xs text-center">
+            <div class="container">
+                <p class="rights"><span>&copy;&nbsp; </span><span class="copyright-year"></span><span>&nbsp;</span><span>All Rights Reserved</span><span>.&nbsp;</span></p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    
+    <!-- Javascript-->
+    <script src="{{ url_for('static', filename='js/core.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+        function savePreferences() {
+            let preferences = {
+                gender: document.getElementById("gender").value,
+                type: getCheckedValues("type"),
+                sleeveType: getCheckedValues("sleeveType"),
+                pattern: getCheckedValues("pattern"),
+                fabric: getCheckedValues("fabric"),
+                neckline: getCheckedValues("neckline")
+            };
+
+            $.ajax({
+                url: "/save_preferences",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ username: "test_user", preferences: preferences }),
+                success: function(response) {
+                    alert(response.message);
+                    getRecommendations();
+                }
+            });
+        }
+
+        function getCheckedValues(name) {
+            return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+        }
+
+        function getRecommendations() {
+            $.ajax({
+                url: "/get_recommendations?username=test_user",
+                type: "GET",
+                success: function(response) {
+                    let recommendationsDiv = document.getElementById("recommendations");
+                    recommendationsDiv.innerHTML = "";
+                    if (response.recommendations.length > 0) {
+                        response.recommendations.forEach(item => {
+                            let imageDiv = document.createElement("div");
+                            imageDiv.className = "image-container";
+                            imageDiv.innerHTML = `<img src="${item.image}" onclick="openModal('${item.image}')">`;
+                            recommendationsDiv.appendChild(imageDiv);
+                        });
+                    } else {
+                        recommendationsDiv.innerHTML = "<p>No recommendations found!</p>";
+                    }
+                }
+            });
+        }
+
+        function openModal(imageSrc) {
+            document.getElementById("modalImage").src = imageSrc;
+            document.getElementById("imageModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        // Load recommendations on page load
+        window.onload = getRecommendations;
+    </script>
 </body>
 </html>

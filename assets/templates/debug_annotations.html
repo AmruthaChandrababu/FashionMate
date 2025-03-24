@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decoded Annotations</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Decoded Annotations</h1>
+    <table>
+        <tr>
+            <th>Image</th>
+            <th>Filename</th>
+            <th>Gender</th>
+            <th>Color</th>
+            <th>Clothing Type</th>
+            <th>Original Codes</th>
+        </tr>
+        {% for item in annotations %}
+        <tr>
+            <td><img src="{{ url_for('static', filename='images/' + item.filename) }}" height="100"></td>
+            <td>{{ item.filename }}</td>
+            <td>{{ item.gender }}</td>
+            <td>{{ item.color }}</td>
+            <td>{{ item.clothing_type }}</td>
+            <td>
+                Gender: {{ item.original_codes.gender_code }}<br>
+                Color: {{ item.original_codes.color_code }}<br>
+                Clothing: {{ item.original_codes.clothing_code }}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
