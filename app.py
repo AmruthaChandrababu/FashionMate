@@ -35,12 +35,12 @@ if not os.path.exists(app.config['UPLOAD_FOLDER']):
 # MongoDB connection
 mongo_conn = MongoDBConnection()
 # Load the dataset
+# Load dataset
+
 try:
-    dataset = pd.read_csv("cleaned_styles.csv")
-    dataset = dataset[
-        (dataset['masterCategory'] == 'Apparel') &
-        (dataset['subCategory'] != 'Innerwear')
-        ]
+    dataset = pd.read_csv(r"C:\Users\AMRUTHA\Desktop\FashionMate\FashionMateReco\labels_front.csv")
+    dataset = dataset.map(lambda x: x.lower() if isinstance(x, str) else x)
+  # Convert all to lowercase
 except Exception as e:
     print(f"Error loading dataset: {e}")
     dataset = pd.DataFrame()
@@ -54,8 +54,7 @@ def resize_images(image_paths, output_folder, size=(30, 40)):
             img = img.resize(size, Image.ANTIALIAS)
             img.save(os.path.join(output_folder, os.path.basename(image_path)))
         except Exception as e:
-            print(f"Error resizing image {image_path}: {e}")    
-
+            print(f"Error resizing image {image_path}: {e}")
 
 
 @app.route("/")
@@ -434,6 +433,7 @@ def profile():
     user = mongo_conn.get_user(session['user'])
     return render_template('Profile.html', user=user)
 
+
 @app.route("/save_preferences", methods=["POST"])
 def save_preferences():
     data = request.json
@@ -449,40 +449,58 @@ def save_preferences():
 
 @app.route("/get_recommendations", methods=["GET"])
 def get_recommendations():
-    username = request.args.get("username")  # Pass username as a query parameter
+    username = request.args.get("username")
     user_preferences = mongo.db.user_preferences.find_one({"username": username})
 
     if not user_preferences:
         return jsonify({"message": "No preferences found!", "recommendations": []})
 
     # Extract user preferences
-    preferred_style = user_preferences.get("preferences", {}).get("preferredStyle", "").lower()
-    preferred_colors = user_preferences.get("preferences", {}).get("preferredColors", [])
-    preferred_colors = [color.lower() for color in preferred_colors]
+    preferences = user_preferences.get("preferences", {})
+    preferred_gender = preferences.get("gender", "").lower()
+    preferred_types = preferences.get("type", [])
+    preferred_sleeve = preferences.get("sleeveType", [])
+    preferred_pattern = preferences.get("pattern", [])
+    preferred_fabric = preferences.get("fabric", [])
+    preferred_neckline = preferences.get("neckline", [])
 
-    # Filter the dataset based on preferences
-    recommendations = dataset[
-        (dataset["usage"].str.lower() == preferred_style)
-        & (dataset["baseColour"].str.lower().isin(preferred_colors))
-    ]
-
-    recommendations = recommendations.head(50)
-    # Get recommendations (assume images are named as "<id>.jpg")
+    # Filter by gender
+    if preferred_gender and preferred_gender != "none":
+        dataset_filtered = dataset[dataset["gender"] == preferred_gender]
+    else:
+        dataset_filtered = dataset.copy()
+    
+    # Apply AND-based filtering
+    def filter_column(df, column, values):
+        if values and "none" not in values:
+            return df[df[column].str.contains('|'.join(values), case=False, na=False)]
+        return df
+    
+    dataset_filtered = filter_column(dataset_filtered, "product_type", preferred_types)
+    dataset_filtered = filter_column(dataset_filtered, "caption", preferred_sleeve)
+    dataset_filtered = filter_column(dataset_filtered, "caption", preferred_pattern)
+    dataset_filtered = filter_column(dataset_filtered, "caption", preferred_fabric)
+    dataset_filtered = filter_column(dataset_filtered, "caption", preferred_neckline)
+    
+    # Get recommendations
+    recommendations = dataset_filtered.head(150)
     recommendation_list = [
         {
-            "id": row["id"],
-            "productName": row["productDisplayName"],
-            "image": f"/static/images/{row['id']}.jpg"
+            "product_id": row["product_id"],
+            "caption": row["caption"],
+            "image": f"/static/images/{row['path']}",
+            "product_type": row["product_type"]
         }
         for _, row in recommendations.iterrows()
     ]
-    # Resize images
-    image_paths = [os.path.join(STATIC_FOLDER, f"{row['id']}.jpg") for _, row in recommendations.iterrows()]
-    resize_images(image_paths, RESIZED_FOLDER)
-
+    
     if not recommendation_list:
         return jsonify({"message": "No matching recommendations found!", "recommendations": []})
-
+    
+    print("User Preferences:", preferences)
+    print("Filtered Dataset Shape:", dataset_filtered.shape)
+    print("Dataset Sample After Filtering:", dataset_filtered.head())
+    
     return jsonify({"message": "Recommendations found!", "recommendations": recommendation_list})
 
 BASE_DIR = "Clothing"
@@ -504,5 +522,22 @@ def get_images():
 
     return jsonify({"images": images})
 
+@app.route('/tryon', defaults={'path': ''})
+@app.route('/tryon/<path:path>')
+def virtual_tryon(path):
+    react_build_dir = os.path.join(os.getcwd(), 'test-fashion', 'dist')
+    
+    # Serve index.html for the root try-on route or any unmatched path (for React Router)
+    if not path or not os.path.exists(os.path.join(react_build_dir, path)):
+        return send_from_directory(react_build_dir, 'index.html')
+    
+    # Serve other static files (e.g., JS, CSS) from the dist folder
+    return send_from_directory(react_build_dir, path)
+
+# Serve static assets explicitly if needed (optional, can be removed if above works)
+@app.route('/assets/<path:filename>')
+def serve_assets(filename):
+    react_build_dir = os.path.join(os.getcwd(), 'test-fashion', 'dist', 'assets')
+    return send_from_directory(react_build_dir, filename)
 if __name__ == "__main__":
     app.run(debug=True)
